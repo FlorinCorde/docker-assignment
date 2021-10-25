@@ -1,0 +1,16 @@
+# docker-compose.yml
+# ----------------------------------------------------------------------------
+# Composes Docker containers and volumes to a runnable Spring Boot application
+# ----------------------------------------------------------------------------
+#
+---
+version: '3'
+
+services:
+
+  backend:
+    image: cloud-expert/docker-assignment-y:1.0.0
+    ports:
+      - "38000:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: we-dont-need-a-variable
