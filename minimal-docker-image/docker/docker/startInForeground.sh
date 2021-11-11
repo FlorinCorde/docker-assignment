@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ##########################################################################################################
 #
 # This script is to execute Payara Server in foreground, mainly in a docker environment.

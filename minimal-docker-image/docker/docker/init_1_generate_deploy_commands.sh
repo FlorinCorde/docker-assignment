@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ################################################################################
 #
 # A script to append deploy commands to the post boot command file at

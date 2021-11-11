@@ -1,4 +1,4 @@
-FROM docker.cloudtrain.aws.msgoat.eu/cloudtrain/at41-docker-jre11:4.0.0
+FROM docker.cloudtrain.aws.msgoat.eu/cloudtrain/at41-docker-jre11:4.0.0 AS builder
 
 ARG ARG_PAYARA_HOME=/opt/payara
 ARG ARG_PAYARA_ADMIN_USER=admin
@@ -12,10 +12,6 @@ ARG ARG_PAYARA_GROUP=payara
 ARG ARG_PAYARA_GID=1234
 
 LABEL maintainer="michael.theis@msg.group"
-LABEL ${project.groupId}.${project.artifactId}.project="AT.41"
-LABEL ${project.groupId}.${project.artifactId}.version="${project.version}"
-LABEL ${project.groupId}.${project.artifactId}.description="${project.description}"
-LABEL ${project.groupId}.${project.artifactId}.payara-version="$ARG_PAYARA_VERSION"
 
 # Initialize the configurable environment variables
 ENV HOME_DIR=$ARG_PAYARA_HOME \
@@ -67,14 +63,48 @@ RUN echo "install missing packages" && \
         /tmp/tmpFile \
         payara.zip \
         ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/osgi-cache \
-        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs && \
-    echo "adding run user payara to system" && \
+        ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs
+
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+ARG ARG_PAYARA_HOME=/opt/payara
+ARG ARG_PAYARA_ADMIN_USER=admin
+ARG ARG_PAYARA_ADMIN_PASSWORD=admin
+ARG ARG_PAYARA_DOMAIN_NAME=domain1
+ARG ARG_PAYARA_VERSION=5.2021.7
+ARG ARG_PAYARA_PKG_URL=https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/${ARG_PAYARA_VERSION}/payara-${ARG_PAYARA_VERSION}.zip
+ARG ARG_PAYARA_USER=payara
+ARG ARG_PAYARA_UID=1234
+ARG ARG_PAYARA_GROUP=payara
+ARG ARG_PAYARA_GID=1234
+
+# Initialize the configurable environment variables
+ENV HOME_DIR=$ARG_PAYARA_HOME \
+    PAYARA_DIR=$ARG_PAYARA_HOME/appserver \
+    SCRIPT_DIR=$ARG_PAYARA_HOME/scripts \
+    CONFIG_DIR=$ARG_PAYARA_HOME/config \
+    DEPLOY_DIR=$ARG_PAYARA_HOME/deployments \
+    PASSWORD_FILE=$ARG_PAYARA_HOME/passwordFile \
+    PAYARA_VERSION=$ARG_PAYARA_VERSION \
+    # Payara Server Domain options
+    DOMAIN_NAME=$ARG_PAYARA_DOMAIN_NAME \
+    ADMIN_USER=$ARG_PAYARA_ADMIN_USER \
+    ADMIN_PASSWORD=$ARG_PAYARA_ADMIN_PASSWORD \
+    # Utility environment variables
+    JVM_ARGS= \
+    PAYARA_ARGS= \
+    DEPLOY_PROPS= \
+    POSTBOOT_COMMANDS=$ARG_PAYARA_HOME/config/post-boot-commands.asadmin \
+    PREBOOT_COMMANDS=$ARG_PAYARA_HOME/config/pre-boot-commands.asadmin
+
+RUN echo "adding run user payara to system" && \
     addgroup --gid $ARG_PAYARA_GID --system $ARG_PAYARA_GROUP && \
-    adduser --system --home ${HOME_DIR} --shell /bin/bash --disabled-login --disabled-password --ingroup $ARG_PAYARA_GROUP --uid $ARG_PAYARA_UID $ARG_PAYARA_USER && \
+    adduser --system --home ${HOME_DIR} --shell /bin/bash  --ingroup $ARG_PAYARA_GROUP --uid $ARG_PAYARA_UID $ARG_PAYARA_USER && \
     chown -R ${ARG_PAYARA_USER}:${ARG_PAYARA_GROUP} ${HOME_DIR}
 
 USER payara
 WORKDIR ${HOME_DIR}
+COPY --from=builder --chown=${ARG_PAYARA_USER}:${ARG_PAYARA_GROUP} ${HOME_DIR} .
 
 # Copy across docker scripts
 COPY --chown=payara:payara *.sh ${SCRIPT_DIR}/
