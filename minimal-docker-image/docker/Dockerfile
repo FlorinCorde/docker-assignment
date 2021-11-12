@@ -62,7 +62,14 @@ RUN echo "install missing packages" && \
     rm -rf \
         /tmp/tmpFile \
         payara.zip \
+        ${PAYARA_DIR}/h2b \
         ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/osgi-cache \
+        ${PAYARA_DIR}/glassfish/modules/jms-admin.jar \
+        ${PAYARA_DIR}/glassfish/modules/jms-core.jar \
+        ${PAYARA_DIR}/glassfish/modules/jms-handler.jar \
+        ${PAYARA_DIR}/glassfish/modules/jms-notifier-console-plugin.jar \
+        ${PAYARA_DIR}/glassfish/modules/jms-notifier-console-plugin.jar \
+        ${PAYARA_DIR}/mq \
         ${PAYARA_DIR}/glassfish/domains/${DOMAIN_NAME}/logs
 
 FROM adoptopenjdk/openjdk11:alpine-jre
