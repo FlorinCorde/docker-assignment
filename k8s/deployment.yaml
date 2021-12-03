@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: y-app
+  labels:
+    app: y-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: y-app
+  template:
+    metadata:
+      labels:
+        app: y-app
+    spec:
+      containers:
+        - name: y-app
+          image: docker.cloudtrain.aws.msgoat.eu/cxp/docker-assignment-y:1.0.0
+          ports:
+            - containerPort: 8080

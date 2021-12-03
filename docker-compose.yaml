@@ -9,7 +9,7 @@ version: '3'
 services:
 
   backend:
-    image: cloud-expert/docker-assignment-y:1.0.0
+    image: docker.cloudtrain.aws.msgoat.eu/cxp/docker-assignment-y:1.0.0
     ports:
       - "38000:8080"
     environment:
