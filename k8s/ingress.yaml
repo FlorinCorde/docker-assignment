@@ -3,15 +3,28 @@ kind: Ingress
 metadata:
   name: y-app
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.frontend.rule.type: PathPrefixStrip
 spec:
   rules:
-    - http:
+    - host: localhost
+      http:
         paths:
           - path: /home
             pathType: Prefix
             backend:
               service:
-                name: y-app
+                name: y-app-service
                 port:
                   name: http
+
+#  rules:
+#    - host: cxp.k8s.azure.msgoat.eu
+#      http:
+#        paths:
+#          - path: /cxp-team-heiterbiswolkig/mdo-cxp-demo(/|$)(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: mdo-cxp-demo-service
+#                port:
+#                  number: 8080
