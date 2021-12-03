@@ -19,3 +19,5 @@ spec:
           image: docker.cloudtrain.aws.msgoat.eu/cxp/docker-assignment-y:1.0.0
           ports:
             - containerPort: 8080
+      imagePullSecrets:
+        - name: harbor-credentials
