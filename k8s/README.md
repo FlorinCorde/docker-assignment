@@ -26,3 +26,4 @@ NOTE: install the apache benchmark tool with: ``` sudo apt install apache2-utils
 
 ## Install with helm
  ``` helm upgrade y-app --install -n cxp-team-y ./k8s/y-app ```
+ ``` helm uninstall y-app -n cxp-team-y  ```
