@@ -24,3 +24,5 @@ NOTE: install the apache benchmark tool with: ``` sudo apt install apache2-utils
 - To monitor resources of the running docker container:
 ``` docker stats <conainter id>```
 
+## Install with helm
+ ``` helm upgrade y-app --install -n cxp-team-y ./k8s/y-app ```
