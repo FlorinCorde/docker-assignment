@@ -50,7 +50,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
-  host: localhost
+  host: cxp.k8s.azure.msgoat.eu
   path: /cxp-team-y/y-app(/|$)(.*)
   pathType: Prefix
   backend:
