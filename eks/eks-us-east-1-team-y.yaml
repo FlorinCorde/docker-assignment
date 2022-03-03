@@ -1,0 +1,36 @@
+# Simplest possible EKS cluster
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-us-east-1-team-y
+  region: us-east-1
+
+# AKS-managed node groups
+managedNodeGroups:
+  - name: mng-us-east-1a-team-y
+    instanceType: m5.large
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 4
+    availabilityZones: ["us-east-1a"]
+  - name: mng-us-east-1b-team-y
+    instanceType: m5.large
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 4
+    availabilityZones: ["us-east-1b"]
+  - name: mng-us-east-1c-team-y
+    instanceType: m5.large
+    minSize: 1
+    desiredCapacity: 1
+    maxSize: 4
+    availabilityZones: ["us-east-1c"]
+
+cloudWatch:
+  clusterLogging:
+    # enable specific types of cluster control plane logs
+    enableTypes: ["audit", "authenticator", "controllerManager"]
+    # all supported types: "api", "audit", "authenticator", "controllerManager", "scheduler"
+    # supported special values: "*" and "all"
