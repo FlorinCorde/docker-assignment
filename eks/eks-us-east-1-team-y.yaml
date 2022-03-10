@@ -7,6 +7,8 @@ metadata:
   name: eks-us-east-1-team-y
   region: us-east-1
 
+availabilityZones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+
 # AKS-managed node groups
 managedNodeGroups:
   - name: mng-us-east-1a-team-y
