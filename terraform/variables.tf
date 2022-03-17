@@ -1,6 +1,6 @@
 variable region_name {
   description = "Name of the aws region"
-  type = string
+  type        = string
 }
 
 variable common_tags {
@@ -13,5 +13,10 @@ variable network_cidr {
 
 variable network_name {
   description = "Network name"
-  type = string
+  type        = string
+}
+
+variable number_of_zones_to_span {
+  type        = int
+  description = "Number of zones to span"
 }
