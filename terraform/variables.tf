@@ -4,11 +4,13 @@ variable region_name {
 }
 
 variable common_tags {
-  type = map(string)
+  type        = map(string)
+  description = "Common tags"
 }
 
 variable network_cidr {
-
+  type        = string
+  description = "Network CIDR"
 }
 
 variable network_name {
@@ -17,6 +19,22 @@ variable network_name {
 }
 
 variable number_of_zones_to_span {
-  type        = int
+  type        = number
   description = "Number of zones to span"
 }
+
+variable vm_instance_type {
+  type        = string
+  description = "Virtual Machine Instance Type"
+}
+
+#variable vm_root_volume_size {
+#  type        = number
+#  description = "Virtual Machine Root Volume size"
+#}
+#
+#variable vm_root_volume_type {
+#  type        = string
+#  description = "Virtual Machine Root Volume type"
+#}
+
