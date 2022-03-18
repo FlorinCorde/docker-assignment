@@ -20,3 +20,7 @@ data aws_region current {
 data aws_availability_zones zones {
   state = "available"
 }
+
+provider aws {
+  region  = var.region_name
+}
