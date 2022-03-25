@@ -2,7 +2,7 @@
 
 To use the AWS cli, you need authentication with MFA:
 ```
-aws sts get-session-token --serial-number arn-of-the-mfa-device --token-code code-from-token
+terraform get
 ```
 Set the `aws_access_key_id` `aws_secret_access_key` `aws_session_token` in .aws/credentials for the default scope
 

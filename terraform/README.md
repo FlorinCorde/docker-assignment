@@ -11,3 +11,7 @@ Apply the plan:
 ```shell
 terraform apply
 ```
+To delete everything:
+```shell
+terraform destroy
+```
