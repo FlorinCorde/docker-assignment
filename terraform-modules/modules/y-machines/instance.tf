@@ -6,7 +6,7 @@ locals {
 resource aws_instance virtual_machine {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.vm_instance_type
-  subnet_id   = aws_subnet.public_web_subnets.0.id
+  subnet_id   = var.subnet_id
   tags        = merge({ Name = local.ec2_instance_name }, local.module_common_tags)
   volume_tags = merge({ Name = local.ebs_volume_name }, local.module_common_tags)
 }

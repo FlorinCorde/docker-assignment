@@ -23,18 +23,3 @@ variable number_of_zones_to_span {
   description = "Number of zones to span"
 }
 
-variable vm_instance_type {
-  type        = string
-  description = "Virtual Machine Instance Type"
-}
-
-#variable vm_root_volume_size {
-#  type        = number
-#  description = "Virtual Machine Root Volume size"
-#}
-#
-#variable vm_root_volume_type {
-#  type        = string
-#  description = "Virtual Machine Root Volume type"
-#}
-
